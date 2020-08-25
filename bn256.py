@@ -1094,7 +1094,7 @@ def g1_marshall(a):
 def g1_unmarshall(x,y):
     return curve_point(x, y)
 
-def g1_hash_to_point(msg):
+def g1_hash_to_point(_hex):
     # From "Indifferentiable Hashing to Barreto-Naehrig Curves"
     # https://www.di.ens.fr/~fouque/pub/latincrypt12.pdf
 
@@ -1104,9 +1104,7 @@ def g1_hash_to_point(msg):
     b = curve_B.value()
 
     # compute t in F_q
-    sha = hashlib.sha512()
-    sha.update(msg)
-    t = int(sha.hexdigest(), 16) % p
+    t = int(_hex, 16) % p
 
     if t == 0:
         # TODO handle this case as described in paper
